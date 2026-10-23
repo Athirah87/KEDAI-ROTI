@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jelajah Kedai Roti Ajaib V3</title>
+<style>
+:root{
+  --ink:#4d3d57;--pink:#f06e9c;--pink2:#ffd9e7;--cream:#fff9ef;--purple:#6d52a7;
+  --mint:#d9f7e8;--blue:#4b90d1;--sky:#dff4ff;--red:#db4c6d;--green:#2b936c;
+  --gold:#ffcf66;--sand:#ffd69e;--shadow:#8b55714d;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Trebuchet MS',Arial,sans-serif;color:var(--ink);
+background:linear-gradient(160deg,#ffe7d8 0%,#fff0f7 45%,#e7faf4 100%);min-height:100vh;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer;border:none}
+button:focus-visible,.item:focus-visible,.answer:focus-visible{outline:4px solid #207db2;outline-offset:3px}
+.shell{max-width:1180px;margin:auto;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:clamp(22px,3vw,30px);font-weight:900;color:#834263}
+.pill{background:#fff;border-radius:999px;padding:8px 16px;font-weight:900;box-shadow:0 4px 16px #a3658526}
+.stage{background:#fffdf8ee;border:3px solid #fff;border-radius:28px;box-shadow:0 18px 55px var(--shadow);padding:clamp(16px,3.4vw,32px);min-height:620px;margin-top:14px;position:relative;overflow:hidden}
+.hide{display:none!important}
+.center{text-align:center}
+h1{font-size:clamp(30px,5vw,56px);line-height:1.08;margin:10px 0}
+h2{font-size:clamp(24px,4vw,40px);margin:8px 0 14px}
+h3{margin:0 0 10px}
+p{font-size:clamp(16px,2vw,20px);line-height:1.55}
+.sub{color:#7f6987}
+.btn{background:var(--pink);color:#fff;border-radius:18px;padding:13px 22px;font-size:18px;font-weight:900;box-shadow:0 5px 0 #c44e79;margin:5px;transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.btn.secondary{background:var(--purple);box-shadow:0 5px 0 #4e3879}
+.btn.green{background:var(--green);box-shadow:0 5px 0 #1a6e52}
+.btn.light{background:#fff;color:#714f71;box-shadow:0 4px 0 #efc7d8;border:2px solid #f0bfd3}
+.hero{background:linear-gradient(#b5ecff 0 62%,#f7d9a1 62% 100%);border:8px solid #fff;border-radius:30px;max-width:800px;margin:14px auto 20px;position:relative;min-height:320px;overflow:hidden}
+.sun{position:absolute;right:40px;top:32px;width:70px;height:70px;border-radius:50%;background:#ffe589;box-shadow:0 0 0 14px #fff0b266;animation:pulseSun 2.6s infinite}
+.cloud{position:absolute;background:white;border-radius:40px;opacity:.95}
+.cloud:before,.cloud:after{content:'';position:absolute;background:white;border-radius:50%}
+.c1{width:110px;height:38px;left:38px;top:46px;animation:floatX 12s linear infinite}.c1:before{width:48px;height:48px;left:12px;top:-22px}.c1:after{width:52px;height:52px;right:14px;top:-26px}
+.c2{width:96px;height:32px;right:160px;top:88px;animation:floatX 16s linear infinite reverse}.c2:before{width:40px;height:40px;left:10px;top:-18px}.c2:after{width:44px;height:44px;right:12px;top:-20px}
+.shopFront{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:min(78%,520px);height:196px;background:#fff2de;border:7px solid #be7b67;border-radius:18px 18px 8px 8px;box-shadow:10px 12px #b7818652}
+.awning{position:absolute;left:-16px;right:-16px;top:-52px;height:56px;border:6px solid #c06f8d;border-radius:14px 14px 0 0;background:repeating-linear-gradient(90deg,#fb7ea6 0 48px,#fff9ef 48px 96px);animation:sway 3s ease-in-out infinite}
+.sign{display:inline-block;margin:34px auto 12px;background:#fff;border-radius:14px;padding:12px 16px;color:#b64c79;font-weight:900;font-size:clamp(19px,3vw,30px);box-shadow:0 4px 12px #a35d7b22}
+.frontIcons{font-size:56px;display:flex;justify-content:center;gap:20px;animation:bob 2.3s ease-in-out infinite}
+.mascot{position:absolute;left:18px;bottom:18px;font-size:78px;animation:bob 2s ease-in-out infinite}
+.sparkles{position:absolute;inset:0;pointer-events:none}.sparkles span{position:absolute;font-size:24px;animation:twinkle 2s infinite}
+.teachnav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.grid2,.grid3{display:grid;gap:14px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.note{padding:18px;border-radius:18px;background:#e9f7fd;border-left:7px solid #5faacb}
+.note.peach{background:#fff0da;border-color:#eca55d}.note.mint{background:#e9f8ec;border-color:#70bd87}.note.lilac{background:#efeafe;border-color:#8c76d6}
+.lessonCard{background:#fff;border:2px solid #efd5e2;border-radius:20px;padding:18px;box-shadow:0 8px 20px #9d698418}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}.chip{padding:8px 14px;border-radius:14px;background:#fff2f6;font-weight:900}
+.legend{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}.legend span{padding:8px 14px;border-radius:12px;font-weight:900}.legend .l1{background:#ffe5ea;color:var(--red)}.legend .l2{background:#e2f1ff;color:var(--blue)}.legend .l3{background:#e2f9e4;color:#187f53}
+.bakery{background:linear-gradient(#ffede2 0 74%,#cb916c 74% 100%);border:8px solid #f4c0b8;border-radius:26px;min-height:420px;padding:20px;position:relative;overflow:hidden}
+.counter{position:absolute;left:0;right:0;bottom:62px;height:18px;background:#b97960}
+.shelves{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;position:relative;z-index:1}
+.item{background:#fff9f0;border:3px solid #e8b3a4;border-bottom:10px solid #b7795f;border-radius:18px;display:flex;align-items:center;flex-direction:column;gap:5px;padding:8px 4px;min-height:122px;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.item:hover{transform:scale(1.04);box-shadow:0 6px 16px #8b52643a}
+.item:before{content:'';position:absolute;top:-30px;right:-30px;width:78px;height:78px;border-radius:50%;background:#fff7;pointer-events:none}
+.emoji{font-size:clamp(36px,5vw,60px);filter:drop-shadow(0 6px 2px #7773);animation:bob 2.5s ease-in-out infinite}
+.item .name{font-weight:900;font-size:17px}.item .mini{font-size:12px;color:#826e83}
+.wordpic{font-size:110px;animation:bob 2.1s ease-in-out infinite}
+.panel{max-width:860px;margin:auto;background:#fff;padding:24px;border-radius:24px;border:2px solid #f0d5e2;box-shadow:0 10px 24px #a76a8118}
+.syll{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:18px 0}
+.unit{padding:14px 22px;border-radius:20px;font-size:clamp(28px,5vw,52px);font-weight:900}
+.u1{background:#ffe5ea;color:var(--red)}.u2{background:#e2f1ff;color:var(--blue)}.u3{background:#e2f9e4;color:#187f53}
+.word{font-size:clamp(36px,6vw,64px);font-weight:900;letter-spacing:2px}
+.bigtag{display:inline-block;background:#fff1b9;color:#7a5a00;padding:9px 16px;border-radius:16px;font-weight:900;margin-bottom:10px}
+.audioBox{background:#faf6ff;border:2px dashed #cab7ef;border-radius:18px;padding:14px;margin-top:14px}
+.fine{font-size:14px;color:#7f7282}
+.audioUpload{display:block;margin:10px auto;max-width:420px}.audioUpload input{max-width:100%}
+.progress{height:14px;background:#eee1df;border-radius:999px;overflow:hidden;margin:12px auto;max-width:700px}.progress div{height:100%;background:#65bf8c;transition:width .3s}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:16px auto;max-width:720px}.answer{border:3px solid #e9c5d8;border-radius:18px;background:white;padding:16px;font-size:22px;font-weight:900;min-height:72px;transition:background .15s,transform .15s}.answer:hover{background:#fff3f8;transform:translateY(-1px)}
+.feedback{font-size:22px;font-weight:900;min-height:34px;margin-top:10px}
+.footer{text-align:center;color:#796c7b;font-size:13px;margin:14px}
+.decor{position:absolute;font-size:24px;animation:twinkle 2.6s infinite;pointer-events:none}.d1{left:18px;top:20px}.d2{right:28px;top:22px}.d3{left:30px;bottom:20px}.d4{right:24px;bottom:26px}
+@keyframes bob{50%{transform:translateY(-7px)}}
+@keyframes sway{50%{transform:translateY(2px)}}
+@keyframes twinkle{0%,100%{transform:scale(.8);opacity:.5}50%{transform:scale(1.2);opacity:1}}
+@keyframes pulseSun{50%{box-shadow:0 0 0 18px #fff0b233}}
+@keyframes floatX{0%{transform:translateX(0)}50%{transform:translateX(28px)}100%{transform:translateX(0)}}
+@media(max-width:840px){.shelves{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.shell{padding:8px}.stage{padding:14px;border-radius:18px;min-height:560px}.grid2,.grid3,.answers{grid-template-columns:1fr}.item{min-height:108px}.shelves{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.item .name{font-size:14px}.emoji{font-size:42px}.btn{font-size:16px;padding:11px 14px}.wordpic{font-size:82px}.unit{padding:10px 14px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="logo">🍞 Jelajah Kedai Roti Ajaib V3</div>
+    <div class="pill">⭐ <span id="stars">0</span> bintang</div>
+  </div>
+  <main class="stage" id="screen" aria-live="polite"></main>
+  <div class="footer">Bahasa Melayu Tahun 2 · Nota interaktif untuk murid arus perdana dan murid inklusif</div>
+</div>
+<script>
+const items=[
+ {id:'susu',name:'susu',syl:['su','su'],pat:['KV','KV'],pic:'🥛',desc:'Susu ialah minuman.',tip:'Dua suku kata terbuka.',type:'2 suku kata'},
+ {id:'sudu',name:'sudu',syl:['su','du'],pat:['KV','KV'],pic:'🥄',desc:'Sudu digunakan untuk mengacau bahan.',tip:'Dua suku kata terbuka.',type:'2 suku kata'},
+ {id:'telur',name:'telur',syl:['te','lur'],pat:['KV','KVK'],pic:'🥚',desc:'Telur digunakan untuk membuat kek.',tip:'Suku kata terbuka diikuti suku kata tertutup.',type:'2 suku kata'},
+ {id:'balang',name:'balang',syl:['ba','lang'],pat:['KV','KVK'],pic:'🫙',desc:'Balang menyimpan biskut atau gula.',tip:'Suku kata terbuka diikuti suku kata tertutup.',type:'2 suku kata'},
+ {id:'donut',name:'donut',syl:['do','nut'],pat:['KV','KVK'],pic:'🍩',desc:'Donut ialah makanan manis yang bulat.',tip:'Dua suku kata: satu terbuka dan satu tertutup.',type:'2 suku kata'},
+ {id:'biskut',name:'biskut',syl:['bis','kut'],pat:['KVK','KVK'],pic:'🍪',desc:'Biskut rasanya rangup.',tip:'Dua suku kata tertutup.',type:'2 suku kata'},
+ {id:'mangkuk',name:'mangkuk',syl:['mang','kuk'],pat:['KVK','KVK'],pic:'🥣',desc:'Mangkuk digunakan untuk mengadun bahan.',tip:'Dua suku kata tertutup. ng ialah satu bunyi konsonan.',type:'2 suku kata'},
+ {id:'kerusi',name:'kerusi',syl:['ke','ru','si'],pat:['KV','KV','KV'],pic:'🪑',desc:'Kerusi untuk duduk di kedai roti.',tip:'Tiga suku kata terbuka.',type:'3 suku kata'},
+ {id:'hiasan',name:'hiasan',syl:['hi','a','san'],pat:['KV','V','KVK'],pic:'🧁',desc:'Hiasan menjadikan kek lebih cantik.',tip:'Tiga suku kata, termasuk satu suku kata vokal sahaja.',type:'3 suku kata'},
+ {id:'penyepit',name:'penyepit',syl:['pe','nye','pit'],pat:['KV','KV','KVK'],pic:'🥢',desc:'Penyepit digunakan untuk mengambil roti atau pastri.',tip:'Tiga suku kata. ny mewakili satu bunyi konsonan.',type:'3 suku kata'},
+ {id:'penimbang',name:'penimbang',syl:['pe','nim','bang'],pat:['KV','KVK','KVK'],pic:'⚖️',desc:'Penimbang digunakan untuk menimbang bahan.',tip:'Tiga suku kata. ng ialah satu bunyi konsonan.',type:'3 suku kata'},
+ {id:'mentega',name:'mentega',syl:['men','te','ga'],pat:['KVK','KV','KV'],pic:'🧈',desc:'Mentega digunakan untuk membuat biskut dan kek.',tip:'Tiga suku kata dengan gabungan tertutup dan terbuka.',type:'3 suku kata'},
+ {id:'penjual',name:'penjual',syl:['pen','ju','al'],pat:['KVK','KV','VK'],pic:'🧑‍🍳',desc:'Penjual membantu pelanggan di kedai roti.',tip:'Tiga suku kata. Akhir perkataan mempunyai pola VK.',type:'3 suku kata'}
+];
+let view='home',selected=items[0],stars=0,quizStep=0,answered=false,visited=new Set(),customAudio={},score=0;
+const root=document.getElementById('screen');
+const starEl=document.getElementById('stars');
+let cachedVoices=[];
+function loadVoices(){cachedVoices=speechSynthesis?.getVoices?.()||[]} loadVoices(); if('speechSynthesis' in window){speechSynthesis.onvoiceschanged=loadVoices}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function nav(v){view=v;render();window.scrollTo({top:0,behavior:'smooth'})}
+function addStar(){stars++;starEl.textContent=stars}
+function patternJoin(arr){return arr.join(' + ')}
+function colorSyl(arr){return arr.map((s,i)=>`<span class="unit ${i===0?'u1':i===1?'u2':'u3'}">${esc(s)}</span>`).join('<span style="font-size:28px;font-weight:900">+</span>')}
+function pickVoice(){
+  const voices=cachedVoices||[];
+  return voices.find(v=>/^ms([-_]|$)/i.test(v.lang)&&/malay|bahasa|microsoft|google|siti|zira|osman|male|female/i.test(v.name))
+    || voices.find(v=>/^ms([-_]|$)/i.test(v.lang))
+    || voices.find(v=>/^id([-_]|$)/i.test(v.lang))
+    || null;
+}
+function speak(text,key){
+  if(customAudio[key]){new Audio(customAudio[key]).play().catch(()=>{});return;}
+  if(!('speechSynthesis' in window)){alert('Suara automatik tidak tersedia pada peranti ini.');return;}
+  speechSynthesis.cancel();
+  const voice=pickVoice();
+  if(!voice){alert('Suara Bahasa Melayu tidak ditemui pada peranti ini. Jika mahu suara lebih semula jadi, awak boleh guna rakaman sendiri pada setiap halaman perkataan.');return;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.voice=voice; u.lang=voice.lang||'ms-MY'; u.rate=.76; u.pitch=1; u.volume=1;
+  speechSynthesis.speak(u);
+}
+function uploadAudio(e,key){const f=e.target.files?.[0]; if(!f) return; if(customAudio[key]) URL.revokeObjectURL(customAudio[key]); customAudio[key]=URL.createObjectURL(f); speak('',key)}
+function showItem(id){selected=items.find(x=>x.id===id)||items[0]; if(!visited.has(id)){visited.add(id); addStar()} nav('detail')}
+function home(){
+return `
+<div class="decor d1">✨</div><div class="decor d2">⭐</div><div class="decor d3">💗</div><div class="decor d4">✨</div>
+<div class="center">
+  <div style="font-size:78px;animation:bob 2.1s infinite">👧🏻</div>
+  <h1>Jelajah Kedai Roti Ajaib</h1>
+  <p>Masuk ke kedai roti, tekan barang, dengar sebutan dan belajar <strong>pelbagai jenis suku kata</strong>.</p>
+  <div class="hero">
+    <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+    <div class="shopFront">
+      <div class="awning"></div>
+      <div class="center"><div class="sign">🍞 KEDAI ROTI AJAIB 🍰</div></div>
+      <div class="frontIcons">🥐 🍞 🧁 🍪 🍩</div>
+    </div>
+    <div class="mascot">🧑🏻‍🍳</div>
+    <div class="sparkles"><span style="left:80px;top:130px">✨</span><span style="right:88px;top:140px">✨</span><span style="left:160px;bottom:58px">⭐</span><span style="right:160px;bottom:66px">✨</span></div>
+  </div>
+  <div class="teachnav">
+    <button class="btn" onclick="nav('intro')">📖 MULA BELAJAR</button>
+    <button class="btn secondary" onclick="nav('shop')">🛍️ TEROKA KEDAI</button>
+    <button class="btn green" onclick="nav('quiz')">🎮 MAIN KUIZ</button>
+  </div>
+</div>`}
+function intro(){return `
+<button class="btn light" onclick="nav('home')">← Kembali</button>
+<div class="center">
+  <h2>📖 Pengenalan Suku Kata</h2>
+  <p><strong>Suku kata</strong> ialah bahagian bunyi dalam sesuatu perkataan. Apabila kita membaca, kita boleh pecahkan perkataan kepada beberapa suku kata.</p>
+  <div class="grid2">
+    <div class="note">
+      <h3>🟠 Suku kata terbuka</h3>
+      <p>Suku kata terbuka berakhir dengan <strong>vokal</strong>.</p>
+      <div class="syll"><span class="unit u1">su</span><span class="unit u2">su</span></div>
+      <p><b>susu</b> = su + su</p>
+    </div>
+    <div class="note peach">
+      <h3>🔵 Suku kata tertutup</h3>
+      <p>Suku kata tertutup berakhir dengan <strong>konsonan</strong>.</p>
+      <div class="syll"><span class="unit u1">bis</span><span class="unit u2">kut</span></div>
+      <p><b>biskut</b> = bis + kut</p>
+    </div>
+  </div>
+  <div class="lessonCard" style="margin-top:14px">
+    <h3>🌟 Nota mudah</h3>
+    <p>Dalam permainan ini, kamu akan belajar perkataan yang mempunyai <strong>dua suku kata</strong> dan <strong>tiga suku kata</strong>.</p>
+    <div class="legend"><span class="l1">Suku kata 1</span><span class="l2">Suku kata 2</span><span class="l3">Suku kata 3</span></div>
+    <p class="fine">Tekan butang audio untuk mendengar sebutan perkataan. Kalau peranti ada suara Bahasa Melayu, permainan ini akan cuba guna suara itu dahulu.</p>
+  </div>
+  <div class="teachnav">
+    <button class="btn secondary" onclick="speak('Suku kata ialah bahagian bunyi dalam perkataan. Suku kata terbuka berakhir dengan vokal. Suku kata tertutup berakhir dengan konsonan. Dalam permainan ini, kamu akan belajar dua suku kata dan tiga suku kata.','intro')">🔊 Dengar nota</button>
+    <button class="btn" onclick="nav('patterns')">Lihat pola suku kata →</button>
+  </div>
+</div>`}
+function patterns(){
+const examples=[
+ ['KV + KV','susu','Dua suku kata terbuka.'],['KV + KVK','telur','Gabungan terbuka dan tertutup.'],['KVK + KVK','biskut','Dua suku kata tertutup.'],
+ ['KV + KV + KV','kerusi','Tiga suku kata terbuka.'],['KV + V + KVK','hiasan','Ada satu suku kata vokal sahaja.'],['KV + KV + KVK','penyepit','Tiga suku kata.'],['KV + KVK + KVK','penimbang','Campuran terbuka dan tertutup.'],['KVK + KV + VK','penjual','Akhir perkataan ialah VK.'],['KVK + KV + KV','mentega','Suku kata pertama tertutup.']
+];
+return `
+<button class="btn light" onclick="nav('intro')">← Kembali</button>
+<div class="center"><h2>🌈 Kenali Pelbagai Pola Suku Kata</h2><p class="sub">Tekan mana-mana kad untuk melihat perkataan dengan lebih dekat.</p></div>
+<div class="grid3">
+${examples.map(([p,w,d],i)=>`<button class="note ${i%3===0?'mint':i%3===1?'peach':'lilac'}" style="text-align:left;cursor:pointer;color:var(--ink)" onclick="showByName('${w}')"><strong style="font-size:21px">${p}</strong><div style="font-size:22px;font-weight:900">${w}</div><span class="fine">${d}</span></button>`).join('')}
+</div>
+<div class="center" style="margin-top:16px"><button class="btn" onclick="nav('shop')">🛍️ Masuk ke kedai roti →</button></div>`}
+function showByName(name){const found=items.find(it=>it.name===name); if(found) showItem(found.id)}
+function shop(){
+return `
+<div class="center"><h2>🛍️ Selamat datang ke kedai roti!</h2><p>Tekan mana-mana barang untuk lihat gambar, pecahan suku kata, pola dan nota mudah.</p>
+<div class="teachnav"><button class="btn light" onclick="nav('patterns')">📖 Lihat nota</button><button class="btn green" onclick="nav('quiz')">🎮 Kuiz</button></div></div>
+<div class="bakery">
+  <div class="decor d1">✨</div><div class="decor d2">⭐</div><div class="decor d3">💗</div><div class="decor d4">✨</div>
+  <div class="counter"></div>
+  <div class="shelves">
+    ${items.map(it=>`<button class="item" onclick="showItem('${it.id}')" aria-label="Belajar perkataan ${it.name}"><span class="emoji">${it.pic}</span><span class="name">${it.name}</span><span class="mini">${it.type}${visited.has(it.id)?' · ⭐':''}</span></button>`).join('')}
+  </div>
+</div>
+<p class="center fine">Perkataan diteroka: ${visited.size} / ${items.length}</p>`}
+function detail(){const it=selected;
+return `
+<button class="btn light" onclick="nav('shop')">← Kembali ke kedai</button>
+<div class="panel center">
+  <div class="bigtag">${it.type}</div>
+  <div class="wordpic">${it.pic}</div>
+  <h2>Ini ${it.name}</h2>
+  <div class="syll">${colorSyl(it.syl)}</div>
+  <div class="word">${it.name}</div>
+  <div class="chips">${it.pat.map(p=>`<span class="chip">${p}</span>`).join('')}</div>
+  <p><strong>${patternJoin(it.pat)}</strong></p>
+  <p>${it.desc}</p>
+  <div class="note mint"><strong>💡 Nota mudah:</strong> ${it.tip}</div>
+  <div class="teachnav" style="margin-top:14px">
+    <button class="btn" onclick="speakItem()">🔊 Dengar & ikut baca</button>
+    <button class="btn secondary" onclick="speakSentence()">🔊 Dengar penerangan</button>
+  </div>
+  <div class="audioBox">
+    <strong>🎙️ Pilihan tambahan: guna rakaman suara sendiri</strong>
+    <label class="audioUpload"><input type="file" accept="audio/*" onchange="uploadAudio(event,'${it.id}')"></label>
+    <div class="fine">Jika awak memilih fail audio sendiri, permainan akan memainkan rakaman itu untuk perkataan ini pada peranti ini.</div>
+  </div>
+  <div class="teachnav" style="margin-top:12px"><button class="btn light" onclick="nav('shop')">🛍️ Pilih barang lain</button><button class="btn green" onclick="nav('quiz')">🎮 Cuba kuiz</button></div>
+</div>`}
+function speakItem(){const it=selected; const text=`${it.syl.join(' ... ')}. ${it.name}. ${it.name} mempunyai ${it.syl.length} suku kata.`; speak(text,it.id)}
+function speakSentence(){const it=selected; const text=`Ini ${it.name}. ${it.name} mempunyai ${it.syl.length} suku kata. ${it.tip}`; speak(text,'explain-'+it.id)}
+const questions=[
+ {q:'Yang manakah mempunyai suku kata su + su?',choices:['susu','telur','biskut','balang'],a:'susu'},
+ {q:'Pilih perkataan yang mempunyai tiga suku kata terbuka.',choices:['kerusi','biskut','balang','donut'],a:'kerusi'},
+ {q:'Lengkapkan perkataan: te + __ = telur',choices:['lur','kut','san','du'],a:'lur'},
+ {q:'Apakah pola suku kata bagi bis + kut?',choices:['KV + KV','KV + KVK','KVK + KVK','KV + V'],a:'KVK + KVK'},
+ {q:'Perkataan manakah mempunyai pola KV + V + KVK?',choices:['hiasan','mentega','penimbang','penjual'],a:'hiasan'},
+ {q:'hi + a + san mempunyai berapa suku kata?',choices:['Satu','Dua','Tiga','Empat'],a:'Tiga'},
+ {q:'Lengkapkan perkataan: pe + nye + __',choices:['ti','ju','pit','ga'],a:'pit'},
+ {q:'Antara berikut, yang manakah mempunyai dua suku kata terbuka?',choices:['sudu','balang','biskut','telur'],a:'sudu'},
+ {q:'Lengkapkan perkataan: men + te + __',choices:['ga','lur','pit','al'],a:'ga'},
+ {q:'Perkataan manakah dieja do + nut?',choices:['donut','susu','balang','kerusi'],a:'donut'}
+];
+function choose(ans){if(answered) return; answered=true; const q=questions[quizStep]; const ok=ans===q.a; if(ok){score++; addStar()} document.getElementById('feedback').textContent = ok ? '🌟 Syabas! Jawapan betul.' : '💗 Cuba lagi! Jawapan yang betul ialah: ' + q.a; document.getElementById('next').classList.remove('hide'); speak(ok?'Syabas. Jawapan betul.':'Cuba lagi. Jawapan yang betul ialah '+q.a,'fb-'+quizStep+(ok?'yes':'no'))}
+function nextQuiz(){quizStep++; answered=false; nav(quizStep>=questions.length?'result':'quiz')}
+function quiz(){
+const q=questions[quizStep]||questions[0];
+return `
+<div class="center"><h2>🎮 Kuiz Kedai Roti</h2><p>Soalan ${quizStep+1} daripada ${questions.length}</p><div class="progress"><div style="width:${(quizStep/questions.length)*100}%"></div></div>
+<div class="panel"><h2>${esc(q.q)}</h2><button class="btn light" onclick='speak(${JSON.stringify(q.q)}, "q-${quizStep}")'>🔊 Dengar soalan</button><div class="answers">${q.choices.map(c=>`<button class="answer" onclick='choose(${JSON.stringify(c)})'>${esc(c)}</button>`).join('')}</div><div class="feedback" id="feedback"></div><button id="next" class="btn green hide" onclick="nextQuiz()">${quizStep===questions.length-1?'Lihat keputusan →':'Soalan seterusnya →'}</button></div><p><button class="btn light" onclick="nav('shop')">← Kembali ke kedai</button></p></div>`}
+function result(){
+return `
+<div class="center"><div style="font-size:110px;animation:bob 2.2s infinite">🏆</div><h1>Tahniah, Pembaca Hebat!</h1><h2>${score} / ${questions.length} jawapan betul</h2><p>Kamu telah belajar banyak perkataan di kedai roti.</p>
+<div class="teachnav"><button class="btn" onclick="quizStep=0;score=0;answered=false;nav('quiz')">🔁 Main lagi</button><button class="btn secondary" onclick="nav('shop')">🛍️ Kembali ke kedai</button><button class="btn light" onclick="nav('home')">🏠 Halaman utama</button></div></div>`}
+function render(){root.innerHTML=({home,intro,patterns,shop,detail,quiz,result}[view]||home)()}
+render();
+</script>
+</body>
+</html>
